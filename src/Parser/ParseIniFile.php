@@ -16,6 +16,8 @@ use BaAGee\Config\Base\ParseConfigAbstract;
  */
 class ParseIniFile extends ParseConfigAbstract
 {
+    protected static $configSuffix = 'ini';
+
     /**
      * @param string $configFile
      * @return array

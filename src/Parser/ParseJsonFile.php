@@ -16,6 +16,8 @@ use BaAGee\Config\Base\ParseConfigAbstract;
  */
 class ParseJsonFile extends ParseConfigAbstract
 {
+    protected static $configSuffix = 'json';
+
     /**
      * @param string $configFile
      * @return array

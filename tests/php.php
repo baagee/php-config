@@ -7,7 +7,7 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParsePHPFile::class, 'php');
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParsePHPFile::class);
 
 $user = \BaAGee\Config\Config::get('mysql/user');
 $mysql = \BaAGee\Config\Config::get('mysql');

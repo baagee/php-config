@@ -16,6 +16,8 @@ use BaAGee\Config\Base\ParseConfigAbstract;
  */
 class ParseYamlFile extends ParseConfigAbstract
 {
+    protected static $configSuffix = 'yaml';
+
     /**
      * @param string $configFile
      * @return array

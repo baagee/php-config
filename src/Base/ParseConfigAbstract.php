@@ -16,6 +16,17 @@ abstract class ParseConfigAbstract
 {
     use ProhibitNewClone;
 
+    protected static $configSuffix = '';
+
+    /**
+     * 获取配置文件后缀
+     * @return string
+     */
+    public static function getConfigSuffix(): string
+    {
+        return static::$configSuffix;
+    }
+
     /**
      * @param string $configFile
      * @return array

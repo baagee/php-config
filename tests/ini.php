@@ -7,7 +7,7 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseIniFile::class, 'ini');
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseIniFile::class);
 
 $password = \BaAGee\Config\Config::get('memcache/password');
 $host     = \BaAGee\Config\Config::get('memcache/host');

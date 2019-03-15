@@ -16,6 +16,8 @@ use BaAGee\Config\Base\ParseConfigAbstract;
  */
 class ParsePHPFile extends ParseConfigAbstract
 {
+    protected static $configSuffix = 'php';
+
     /**
      * @param string $configFile
      * @return array

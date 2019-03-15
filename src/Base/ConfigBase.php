@@ -29,25 +29,22 @@ abstract class ConfigBase
      * @var string
      */
     protected static $configParser = ParsePHPFile::class;
-    /**
-     * @var string
-     */
-    protected static $configSuffix = 'php';
 
     /**
      * @param string $configPath
      * @param string $configParser
-     * @param string $configSuffix
+     * @throws \Exception
      */
-    public static function init(string $configPath, string $configParser = '', string $configSuffix = '')
+    public static function init(string $configPath, string $configParser = '')
     {
         if (static::$isInit === false) {
             static::$configPath = rtrim($configPath, DIRECTORY_SEPARATOR);
             if (!empty($configParser)) {
-                static::$configParser = $configParser;
-            }
-            if (!empty($configSuffix)) {
-                self::$configSuffix = $configSuffix;
+                if (is_subclass_of($configParser, ParseConfigAbstract::class)) {
+                    static::$configParser = $configParser;
+                } else {
+                    throw new \Exception($configParser . '没有继承' . ParseConfigAbstract::class);
+                }
             }
             static::$isInit = true;
         }

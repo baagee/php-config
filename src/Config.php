@@ -44,8 +44,15 @@ class Config extends ConfigBase implements ConfigInterface
             if (isset(self::$configArray[$topKey])) {
                 goto findConfVal;
             } else {
-                $currentConfigFile = self::$configPath . DIRECTORY_SEPARATOR . $topKey . '.' . self::$configSuffix;
-                $res               = call_user_func(self::$configParser . '::parse', $currentConfigFile);
+                $suffix            = trim(call_user_func(self::$configParser . '::getConfigSuffix'));
+                $currentConfigFile = self::$configPath . DIRECTORY_SEPARATOR . $topKey;
+                if ($suffix) {
+                    $currentConfigFile .= '.' . $suffix;
+                } else {
+                    // 配置文件没有后缀直接返回null
+                    return null;
+                }
+                $res = call_user_func(self::$configParser . '::parse', $currentConfigFile);
                 if (!empty($res)) {
                     self::$configArray[$topKey] = $res;
                     goto findConfVal;
