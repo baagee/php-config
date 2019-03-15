@@ -10,4 +10,4 @@ interface ConfigInterface
 
 使用：tests目录
 
-支持json,php,yaml,ini配置文件解析获取
+支持json,php,yaml,ini,xml配置文件解析获取

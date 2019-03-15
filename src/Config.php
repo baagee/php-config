@@ -66,6 +66,7 @@ class Config extends ConfigBase implements ConfigInterface
             } else {
                 $value = self::findConfVal(self::$configArray[$topKey], implode('/', $nameArr));
             }
+            $value                   = trim($value);
             self::$valueCache[$name] = $value;
             return $value;
         }

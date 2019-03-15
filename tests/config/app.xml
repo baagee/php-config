@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+    <main>
+        <app_name>
+            test_app
+        </app_name>
+        <is_debug>
+            true
+        </is_debug>
+        <url_rewrite>
+            true
+        </url_rewrite>
+    </main>
+    <mysql>
+        <host>
+            localhost
+        </host>
+        <port>
+            6379
+        </port>
+        <user>root</user>
+        <password>fdsghytr7ygui</password>
+        <database>
+            mydb
+        </database>
+    </mysql>
+    <redis>
+        <host>localhost</host>
+        <port>8888</port>
+    </redis>
+</root>
