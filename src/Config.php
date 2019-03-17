@@ -8,14 +8,14 @@
 
 namespace BaAGee\Config;
 
-use BaAGee\Config\Base\ConfigBase;
+use BaAGee\Config\Base\ConfigAbstract;
 use BaAGee\Config\Base\ConfigInterface;
 
 /**
  * Class Config
  * @package BaAGee\Config
  */
-class Config extends ConfigBase implements ConfigInterface
+class Config extends ConfigAbstract implements ConfigInterface
 {
     /**
      * @var array 缓存key=>value
@@ -66,7 +66,6 @@ class Config extends ConfigBase implements ConfigInterface
             } else {
                 $value = self::findConfVal(self::$configArray[$topKey], implode('/', $nameArr));
             }
-            $value                   = trim($value);
             self::$valueCache[$name] = $value;
             return $value;
         }

@@ -14,7 +14,7 @@ use BaAGee\Config\Parser\ParsePHPFile;
  * Class ConfigBase
  * @package BaAGee\Config\Base
  */
-abstract class ConfigBase
+abstract class ConfigAbstract
 {
     use ProhibitNewClone;
     /**
