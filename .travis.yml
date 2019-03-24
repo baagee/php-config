@@ -1,0 +1,15 @@
+language: php
+php:
+- '7.0'
+- '7.1'
+- '7.2'
+
+install:
+- composer install --prefer-dist
+
+script:
+- php ./tests/ini.php
+- php ./tests/json.php
+- php ./tests/php.php
+- php ./tests/xml.php
+- php ./tests/yaml.php
