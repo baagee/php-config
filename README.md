@@ -11,7 +11,10 @@ interface ConfigInterface
 
 ### 支持json,php,yaml,ini,xml配置文件解析获取
 
-###示例代码：
+### 安装使用： 
+composer require baagee/php-config
+
+### 示例代码：
 
 #### 解析ini配置
 ini配置文件memcache.ini
