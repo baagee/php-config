@@ -15,10 +15,12 @@
     }
   ],
   "require": {
-    "php": ">=7.1",
-    "ext-yaml":"*",
-    "ext-json":"*",
-    "ext-simplexml":"*"
+    "php": ">=7.1"
+  },
+  "suggest": {
+    "ext-yaml": "ext-yaml",
+    "ext-json": "ext-json",
+    "ext-simplexml": "ext-simplexml"
   },
   "autoload": {
     "psr-4": {
