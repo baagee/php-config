@@ -49,4 +49,12 @@ abstract class ConfigAbstract
             static::$isInit = true;
         }
     }
+
+    // 重置config
+    public static function reset()
+    {
+        static::$configPath   = '';
+        static::$configParser = ParsePHPFile::class;
+        static::$isInit       = false;
+    }
 }
