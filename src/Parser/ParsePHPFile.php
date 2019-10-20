@@ -25,7 +25,7 @@ class ParsePHPFile extends ParseConfigAbstract
     public static function parse(string $configFile): array
     {
         if (is_file($configFile)) {
-            $res = include_once $configFile;
+            $res = include $configFile;
             return empty($res) ? [] : $res;
         } else {
             return [];
