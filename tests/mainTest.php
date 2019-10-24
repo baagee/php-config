@@ -6,6 +6,9 @@
  * Time: 20:39
  */
 
+use BaAGee\Config\Config;
+use BaAGee\Config\Parser\ParsePHPFile;
+
 include __DIR__ . '/../vendor/autoload.php';
 
 class mainTest extends \PHPUnit\Framework\TestCase
@@ -68,6 +71,21 @@ class mainTest extends \PHPUnit\Framework\TestCase
         $name = \BaAGee\Config\Config::get('keyvalue/name');
         $age  = \BaAGee\Config\Config::get('keyvalue/age');
         $this->assertEquals($name, '小冰');
+    }
+
+    public function testFast()
+    {
+        \BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+
+        Config::fast(__DIR__);
+
+        $t1 = microtime(true);
+        for ($i = 0; $i < 100; $i++) {
+            $c = Config::get('service/ddd/asd/cc/ddd/dd');
+        }
+        $t2 = microtime(true);
+        var_dump($t2 - $t1);
+        $this->assertEquals($t2, $t2);
     }
 }
 

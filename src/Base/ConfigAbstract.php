@@ -31,6 +31,18 @@ abstract class ConfigAbstract
     protected static $configParser = ParsePHPFile::class;
 
     /**
+     * @var array 缓存key=>value
+     */
+    protected static $valueCache = [];
+
+    /**
+     * @var array 缓存配置文件的值
+     */
+    protected static $configArray = [];
+
+    protected const FAST_KEY = 'config_fast_cache';
+
+    /**
      * @param string $configPath
      * @param string $configParser
      * @throws \Exception
@@ -58,44 +70,59 @@ abstract class ConfigAbstract
         static::$isInit       = false;
     }
 
-    // /**
-    //  * @return array
-    //  */
-    // public static function getCache(): array
-    // {
-    //     return self::$cache;
-    // }
-    //
-    //
-    // protected static $cache = [];
-    //
-    // public static function dump($topKey = '')
-    // {
-    //     $topKey = trim($topKey, '/');
-    //     $dirs   = scandir(self::$configPath . '/' . $topKey);
-    //     foreach ($dirs as $fd) {
-    //         if (!in_array($fd, ['.', '..'])) {
-    //             $tt = trim($topKey . '/' . str_replace('.php', '', $fd), '/');
-    //             if (is_dir(self::$configPath . '/' . $topKey . '/' . $fd)) {
-    //                 self::dump($tt);
-    //             } else {
-    //                 if (strpos($fd, '.php') !== false) {
-    //                     $temp             = include self::$configPath . '/' . $topKey . '/' . $fd;
-    //                     self::$cache[$tt] = $temp;
-    //                     self::eee($tt, $temp);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    //
-    // protected static function eee($top, array $c)
-    // {
-    //     foreach ($c as $k => $v) {
-    //         self::$cache[$top . '/' . $k] = $v;
-    //         if (is_array($v)) {
-    //             self::eee($top . '/' . $k, $v);
-    //         }
-    //     }
-    // }
+    /**
+     * 快速缓存
+     * @param string $cachePath
+     */
+    public static function fast($cachePath = '')
+    {
+        if (empty($cachePath)) {
+            $cachePath = self::$configPath;
+        }
+        $fastFile = $cachePath . DIRECTORY_SEPARATOR . static::FAST_KEY . '.php';
+        if (is_file($fastFile)) {
+            self::$valueCache = include $fastFile;
+        } else {
+            static::dump('');
+            register_shutdown_function(function () use ($fastFile) {
+                try {
+                    file_put_contents($fastFile, '<?php' . PHP_EOL . 'return ' . var_export(static::$valueCache, true) . ';');
+                } catch (\Throwable $e) {
+
+                }
+            });
+        }
+    }
+
+    protected static function dump($topKey = '')
+    {
+        $topKey = trim($topKey, '/');
+        $dirs   = scandir(static::$configPath . DIRECTORY_SEPARATOR . $topKey);
+        $suffix = trim(call_user_func(static::$configParser . '::getConfigSuffix'));
+        foreach ($dirs as $fd) {
+            if (!in_array($fd, ['.', '..', static::FAST_KEY])) {
+                $tt      = trim($topKey . '/' . str_replace('.' . $suffix, '', $fd), '/');
+                $subFile = implode(DIRECTORY_SEPARATOR, [static::$configPath, $topKey, $fd]);
+                if (is_dir($subFile)) {
+                    static::dump($tt);
+                } else {
+                    if (strpos($fd, '.' . $suffix) !== false) {
+                        $temp                    = call_user_func(static::$configParser . '::parse', $subFile);
+                        static::$valueCache[$tt] = $temp;
+                        static::subDump($tt, $temp);
+                    }
+                }
+            }
+        }
+    }
+
+    protected static function subDump($top, array $c)
+    {
+        foreach ($c as $k => $v) {
+            static::$valueCache[$top . '/' . $k] = $v;
+            if (is_array($v)) {
+                static::subDump($top . '/' . $k, $v);
+            }
+        }
+    }
 }

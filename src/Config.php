@@ -18,16 +18,6 @@ use BaAGee\Config\Base\ConfigInterface;
 class Config extends ConfigAbstract implements ConfigInterface
 {
     /**
-     * @var array 缓存key=>value
-     */
-    protected static $valueCache = [];
-
-    /**
-     * @var array 缓存配置文件的值
-     */
-    protected static $configArray = [];
-
-    /**
      * 获取配置文件
      * @param string $name 配置名 类似 Config::get('mysql/host')获取的就是mysql.php配置的host值
      * @return mixed|null
