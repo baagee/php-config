@@ -116,4 +116,22 @@ name：小冰
 age：17
 ```
 
+加快配置信息读取
+```php
+use BaAGee\Config\Config;
+use BaAGee\Config\Parser\ParsePHPFile;
+
+include_once __DIR__ . '/../vendor/autoload.php';
+
+\BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+// 设置配置文件缓存目录 加速读取
+Config::fast(__DIR__);
+
+$t1 = microtime(true);
+for ($i = 0; $i < 100; $i++) {
+    $c = Config::get('service/ddd/asd/cc/ddd/dd');
+}
+$t2 = microtime(true);
+var_dump($t2 - $t1);
+```
 ### 其他具体使用：tests目录
