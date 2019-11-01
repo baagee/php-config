@@ -73,6 +73,13 @@ class mainTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($name, '小冰');
     }
 
+    public function testDefault()
+    {
+        \BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+        $val = Config::get('aaa/default', 'default');
+        $this->assertEquals('default', $val);
+    }
+
     public function testFast()
     {
         \BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);

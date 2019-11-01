@@ -10,5 +10,5 @@ namespace BaAGee\Config\Base;
 
 interface ConfigInterface
 {
-    public static function get(string $key);
+    public static function get(string $key, $default = null);
 }

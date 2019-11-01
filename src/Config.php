@@ -20,11 +20,12 @@ class Config extends ConfigAbstract implements ConfigInterface
     /**
      * 获取配置文件
      * @param string $name 配置名 类似 Config::get('mysql/host')获取的就是mysql.php配置的host值
+     * @param null   $default 默认值
      * @return mixed|null
      */
-    public static function get(string $name)
+    public static function get(string $name, $default = null)
     {
-        $value = null;
+        $value = $default;
         $name  = trim($name, '/');
         if (array_key_exists($name, self::$valueCache)) {
             //缓存值存在直接返回
