@@ -29,8 +29,8 @@ abc=pp0
 
 ```php
 // 解析ini配置文件
-ini方法两个参数 第一个是配置文件存放的根目录 
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseIniFile::class);
+//ini方法两个参数 第一个是配置文件存放的根目录 
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\IniParser::class);
 $password = \BaAGee\Config\Config::get('memcache/password');// 获取memcache文件的password值
 $host     = \BaAGee\Config\Config::get('memcache/host');
 ```
@@ -46,8 +46,8 @@ access_token: 98y8u67
 ```
 ```php
 include_once __DIR__ . '/../vendor/autoload.php';
-使用内置的yaml配置解析 需要安装yaml扩展
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseYamlFile::class);
+//使用内置的yaml配置解析 需要安装yaml扩展
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\YamlParser::class);
 $meituanServer = \BaAGee\Config\Config::get('meituan/server');
 $accessKey     = \BaAGee\Config\Config::get('meituan/access_key');
 var_dump($meituanServer, $accessKey);
@@ -58,8 +58,8 @@ var_dump($meituanServer, $accessKey);
 php代码：
 ```php
 include_once __DIR__ . '/../vendor/autoload.php';
-使用内置的yaml配置解析 需要安装yaml扩展
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseYamlFile::class);
+//使用内置的yaml配置解析 需要安装yaml扩展
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\YamlParser::class);
 // 从config目录开始 service文件夹下meituan.yaml配置文件下的server的值
 $meituanServer = \BaAGee\Config\Config::get('service/meituan/server');
 $accessKey     = \BaAGee\Config\Config::get('service/meituan/access_key');
@@ -119,11 +119,10 @@ age：17
 加快配置信息读取
 ```php
 use BaAGee\Config\Config;
-use BaAGee\Config\Parser\ParsePHPFile;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\PhpParser::class);
 // 设置配置文件缓存目录 加速读取
 Config::fast(__DIR__);
 
