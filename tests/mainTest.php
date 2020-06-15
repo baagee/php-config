@@ -7,7 +7,7 @@
  */
 
 use BaAGee\Config\Config;
-use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Config\Parser\PhpParser;
 
 include __DIR__ . '/../vendor/autoload.php';
 
@@ -21,7 +21,7 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testIni()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseIniFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\IniParser::class);
         $password = \BaAGee\Config\Config::get('memcache/password');
         $host     = \BaAGee\Config\Config::get('memcache/host');
         $this->assertEquals($host, "127.0.0.1");
@@ -29,7 +29,7 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testJson()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseJsonFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\JsonParser::class);
         $password = \BaAGee\Config\Config::get('redis/password');
         $host     = \BaAGee\Config\Config::get('redis/host');
         $this->assertEquals($password, "234r34t3");
@@ -37,7 +37,7 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testXml()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseXmlFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\XmlParser::class);
         $app_name = \BaAGee\Config\Config::get('app/main/app_name');
         $host     = \BaAGee\Config\Config::get('app/mysql/host');
         $this->assertEquals(trim($host), 'localhost');
@@ -45,7 +45,7 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testYaml()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseYamlFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\YamlParser::class);
         $meituanServer = \BaAGee\Config\Config::get('meituan/server/host');
         $this->assertEquals($meituanServer, '127.0.0.1');
         $accessKey = \BaAGee\Config\Config::get('service/meituan/access_key');
@@ -54,7 +54,7 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testPHP()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParsePHPFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\PhpParser::class);
         $user = \BaAGee\Config\Config::get('/service/mysql/user');
         $this->assertEquals($user, 'sdgsf');
         $mysqls = \BaAGee\Config\Config::get('/service/mysqls');
@@ -75,14 +75,14 @@ class mainTest extends \PHPUnit\Framework\TestCase
 
     public function testDefault()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', PhpParser::class);
         $val = Config::get('aaa/default', 'default');
         $this->assertEquals('default', $val);
     }
 
     public function testFast()
     {
-        \BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+        \BaAGee\Config\Config::init(__DIR__ . '/config', PhpParser::class);
 
         Config::fast(__DIR__);
 

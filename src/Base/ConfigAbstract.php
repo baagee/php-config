@@ -8,7 +8,7 @@
 
 namespace BaAGee\Config\Base;
 
-use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Config\Parser\PhpParser;
 
 /**
  * Class ConfigBase
@@ -28,7 +28,7 @@ abstract class ConfigAbstract
     /**
      * @var string
      */
-    protected static $configParser = ParsePHPFile::class;
+    protected static $configParser = PhpParser::class;
 
     /**
      * @var array 缓存key=>value
@@ -66,7 +66,7 @@ abstract class ConfigAbstract
     public static function reset()
     {
         static::$configPath   = '';
-        static::$configParser = ParsePHPFile::class;
+        static::$configParser = PhpParser::class;
         static::$isInit       = false;
     }
 

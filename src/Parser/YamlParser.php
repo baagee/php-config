@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 解析ini配置
+ * Desc: 解析yaml配置
  * User: baagee
  * Date: 2019/3/14
  * Time: 下午10:03
@@ -11,12 +11,12 @@ namespace BaAGee\Config\Parser;
 use BaAGee\Config\Base\ParseConfigAbstract;
 
 /**
- * Class ParsePHPFile
+ * Class YamlParser
  * @package BaAGee\Config\Parser
  */
-class ParseXmlFile extends ParseConfigAbstract
+class YamlParser extends ParseConfigAbstract
 {
-    protected static $configSuffix = 'xml';
+    protected static $configSuffix = 'yaml';
 
     /**
      * @param string $configFile
@@ -25,9 +25,7 @@ class ParseXmlFile extends ParseConfigAbstract
     public static function parse(string $configFile): array
     {
         if (is_file($configFile)) {
-            $xml = simplexml_load_file($configFile);
-            $res = json_decode(json_encode($xml, JSON_UNESCAPED_UNICODE), true);
-            return $res == null ? [] : $res;
+            return yaml_parse_file($configFile);
         } else {
             return [];
         }

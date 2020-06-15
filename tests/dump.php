@@ -7,13 +7,13 @@
  */
 
 use BaAGee\Config\Config;
-use BaAGee\Config\Parser\ParseJsonFile;
-use BaAGee\Config\Parser\ParsePHPFile;
+use BaAGee\Config\Parser\JsonParser;
+use BaAGee\Config\Parser\PhpParser;
 use BaAGee\Config\Parser\ParseYamlFile;
 
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\BaAGee\Config\Config::init(__DIR__ . '/config', ParsePHPFile::class);
+\BaAGee\Config\Config::init(__DIR__ . '/config', PhpParser::class);
 
 Config::fast(__DIR__);
 

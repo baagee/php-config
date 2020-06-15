@@ -1,9 +1,9 @@
 <?php
 /**
- * Desc: 解析php配置文件
+ * Desc: 解析ini配置
  * User: baagee
  * Date: 2019/3/14
- * Time: 下午8:06
+ * Time: 下午10:03
  */
 
 namespace BaAGee\Config\Parser;
@@ -11,12 +11,12 @@ namespace BaAGee\Config\Parser;
 use BaAGee\Config\Base\ParseConfigAbstract;
 
 /**
- * Class ParsePHPFile
+ * Class IniParser
  * @package BaAGee\Config\Parser
  */
-class ParsePHPFile extends ParseConfigAbstract
+class IniParser extends ParseConfigAbstract
 {
-    protected static $configSuffix = 'php';
+    protected static $configSuffix = 'ini';
 
     /**
      * @param string $configFile
@@ -25,8 +25,8 @@ class ParsePHPFile extends ParseConfigAbstract
     public static function parse(string $configFile): array
     {
         if (is_file($configFile)) {
-            $res = include $configFile;
-            return empty($res) ? [] : $res;
+            $res = parse_ini_file($configFile, true);
+            return $res == null ? [] : $res;
         } else {
             return [];
         }

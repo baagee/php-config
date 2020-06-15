@@ -7,7 +7,7 @@
  */
 include_once __DIR__ . '/../vendor/autoload.php';
 
-\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\ParseXmlFile::class);
+\BaAGee\Config\Config::init(__DIR__ . '/config', \BaAGee\Config\Parser\XmlParser::class);
 
 $app_name = \BaAGee\Config\Config::get('app/main/app_name');
 $host     = \BaAGee\Config\Config::get('app/mysql/host');

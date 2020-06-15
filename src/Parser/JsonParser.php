@@ -1,6 +1,6 @@
 <?php
 /**
- * Desc: 解析ini配置
+ * Desc: 解析json配置
  * User: baagee
  * Date: 2019/3/14
  * Time: 下午10:03
@@ -11,12 +11,12 @@ namespace BaAGee\Config\Parser;
 use BaAGee\Config\Base\ParseConfigAbstract;
 
 /**
- * Class ParsePHPFile
+ * Class JsonParser
  * @package BaAGee\Config\Parser
  */
-class ParseIniFile extends ParseConfigAbstract
+class JsonParser extends ParseConfigAbstract
 {
-    protected static $configSuffix = 'ini';
+    protected static $configSuffix = 'json';
 
     /**
      * @param string $configFile
@@ -25,7 +25,7 @@ class ParseIniFile extends ParseConfigAbstract
     public static function parse(string $configFile): array
     {
         if (is_file($configFile)) {
-            $res = parse_ini_file($configFile, true);
+            $res = json_decode(file_get_contents($configFile), true);
             return $res == null ? [] : $res;
         } else {
             return [];

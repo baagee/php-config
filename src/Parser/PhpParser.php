@@ -1,9 +1,9 @@
 <?php
 /**
- * Desc: 解析yaml配置
+ * Desc: 解析php配置文件
  * User: baagee
  * Date: 2019/3/14
- * Time: 下午10:03
+ * Time: 下午8:06
  */
 
 namespace BaAGee\Config\Parser;
@@ -11,12 +11,12 @@ namespace BaAGee\Config\Parser;
 use BaAGee\Config\Base\ParseConfigAbstract;
 
 /**
- * Class ParsePHPFile
+ * Class PhpParser
  * @package BaAGee\Config\Parser
  */
-class ParseYamlFile extends ParseConfigAbstract
+class PhpParser extends ParseConfigAbstract
 {
-    protected static $configSuffix = 'yaml';
+    protected static $configSuffix = 'php';
 
     /**
      * @param string $configFile
@@ -25,7 +25,8 @@ class ParseYamlFile extends ParseConfigAbstract
     public static function parse(string $configFile): array
     {
         if (is_file($configFile)) {
-            return yaml_parse_file($configFile);
+            $res = include $configFile;
+            return empty($res) ? [] : $res;
         } else {
             return [];
         }
